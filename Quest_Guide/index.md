@@ -90,6 +90,12 @@ versions of Puppet are running on this Learning VM. Type the following command:
 
     puppet -V	# That's a capital 'V'
 
+<!--
+---
+- in: the shell
+  enter: puppet -V
+-->
+
 You will see something like the following:
 
 _3.7.3 (Puppet Enterprise 3.7.1)_
