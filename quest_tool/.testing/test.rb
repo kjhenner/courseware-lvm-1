@@ -44,6 +44,7 @@ EOS
   opt :completed, "Display completed quests"
   opt :list, "Show all available quests"
   opt :start, "Provide name of the quest to track", :type => :string
+  opt :solve, "Provide the name of the quest to solve", :type => :string
 end
 
 opts = Trollop::with_standard_exception_handling p do
@@ -63,6 +64,32 @@ if not File.file?('/root/.testing/log.yml')
   initialize_yaml = Hash.new()
   initialize_yaml["current"] = "begin"
   File.open('/root/.testing/log.yml', 'w') {|f| f.write initialize_yaml.to_yaml }
+end
+
+if opts[:solve]
+  name = opts[:solve].downcase
+  if File.exists?("/root/.testing/spec/localhost/#{name}_spec.rb")
+    quest = name == 'welcome' ? 'index' : "quest/#{name}"
+    f = File.open("usr/src/courseware/-lvm/Quest_Guide/#{quest}.md")
+    task = YAML.load(/<--(.*?)-->/m.match(f.read)[task-1])
+    f.close
+    task.each do |t|
+      if task['in'] == 'the shell'
+        %x(task['enter'])
+        open('/root/.bash_history', 'a') { |f|
+          f.puts task['enter']
+        }
+      else
+        puts "#{task['in'} is not a recognized context. Please check the task"
+        puts "specification in the #{name} quest markdown file."
+        exit 1
+      end
+    end
+  else
+    puts "The quest you specified does not exist."
+    puts "The command: 'quests --list' will list all available quests."
+    exit 1
+  end
 end
 
 if opts[:list] then
