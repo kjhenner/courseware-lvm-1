@@ -68,25 +68,33 @@ end
 
 if opts[:solve]
   name = opts[:solve].downcase
-  if File.exists?("/root/.testing/spec/localhost/#{name}_spec.rb")
-    quest = name == 'welcome' ? 'index' : "quest/#{name}"
-    f = File.open("usr/src/courseware/-lvm/Quest_Guide/#{quest}.md")
-    task = YAML.load(/<--(.*?)-->/m.match(f.read)[task-1])
+  quest = name == 'welcome' ? 'index' : "quests/#{name}"
+  if File.exists?("/usr/src/courseware-lvm/Quest_Guide/#{quest}.md")
+    f = File.open("/usr/src/courseware-lvm/Quest_Guide/#{quest}.md")
+    task_specs = f.read.scan(/<!--(.*?)-->/m)
+    tasks = task_specs.collect do |m|
+      puts m[0]
+      YAML.load(m[0])
+    end
     f.close
-    task.each do |t|
-      if task['in'] == 'the shell'
-        %x(task['enter'])
+    tasks.each do |t|
+      t.each do |s|
+        Open3.popen3(s['enter']) do |i, o, e, t|
+          if s['write']
+            s['write'].each { |w| puts w.inspect }
+            s['write'].each { |w| i.write(w) }
+          end
+          i.close
+          puts o.read
+        end
+        # Cheating way to make tests that check bash history work:
         open('/root/.bash_history', 'a') { |f|
-          f.puts task['enter']
+          f.puts s['enter']
         }
-      else
-        puts "#{task['in'} is not a recognized context. Please check the task"
-        puts "specification in the #{name} quest markdown file."
-        exit 1
       end
     end
   else
-    puts "The quest you specified does not exist."
+    puts "The #{quest} quest does not exist."
     puts "The command: 'quests --list' will list all available quests."
     exit 1
   end

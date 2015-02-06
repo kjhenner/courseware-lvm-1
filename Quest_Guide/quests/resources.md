@@ -71,6 +71,10 @@ you can inspect the current state of any existing resource in the same syntax
 you would use to declare a desired state.
 
 {% task 1 %}
+<!--
+---
+- enter: puppet resource
+-->
 
 Using the *puppet resource* tool, take a look at your root user account. Note
 the pattern of the command will be: *puppet resource \<type\> \<name\>*.
@@ -189,6 +193,12 @@ more about the user type. You'll want a way of knowing *what* you're changing
 before you start changing attributes. 
 
 {% task 2 %}
+<!--
+---
+- enter: "puppet describe user | less"
+  write:
+    - 'q\r'
+-->
 
 Use the *puppet describe* tool to get a description of the *user* type,
 including a list of its parameters.
@@ -211,6 +221,10 @@ one-off change. We'll get to the more robust ways to manage resources in later
 quests.)
 
 {% task 3 %}
+<!--
+- enter: |
+    puppet apply -e "user { 'galatea': ensure => 'present', }"
+-->
 
 You can use the *puppet apply* tool with the *-e* (*--execute*) flag to execute
 a bit of Puppet code. In this example, you'll create a new user called
@@ -232,6 +246,16 @@ describe* entry for the user type, this *comment* is generally the full name of
 the account's owner.
 
 {% task 4 %}
+<!--
+---
+- enter: "puppet resource -e user galatea"
+  write:
+    - "o"
+    - "  comment => 'Galatea of Cyprus',"
+    - "\e"
+    - "\:"
+    - "wq\r"
+-->
 
 While puppet apply with the `-e` flag can be handy for quick one-liners, you can
 pass an `--execute` (incidentally, also shortened to `-e`) flag to the `puppet
