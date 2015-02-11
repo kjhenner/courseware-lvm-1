@@ -320,14 +320,6 @@ Save the manifest, and check your syntax with the `puppet parser` tool.
   enter: include cowsayings
 -->
 
-Next, create a test for the `init.pp` manifest in the tests directory.
-
-    vim cowsayings/tests/init.pp
-	
-Here, just declare the `cowsayings` class:
-
-    include cowsayings
-
 At this point, you've already got both packages you want installed on the
 Learning VM. Applying the changes again wouldn't actually do anything. For the
 sake of demonstration, go ahead and use a `puppet apply -e` to delete them so
@@ -335,6 +327,14 @@ you can test the functionality of your new `cowsayings` class:
 
     puppet apply -e "package { 'fortune-mod': ensure => 'absent', } \
      package {'cowsay': ensure => 'absent', }"
+
+Next, create a test for the `init.pp` manifest in the tests directory.
+
+    vim cowsayings/tests/init.pp
+	
+Here, just declare the `cowsayings` class:
+
+    include cowsayings
 
 {% task 9 %}
 <!--
