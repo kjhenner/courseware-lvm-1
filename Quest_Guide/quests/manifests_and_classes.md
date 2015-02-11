@@ -232,7 +232,7 @@ class cowsayings::fortune {
 {% task 5 %}
 <!--
 ---
-- in: cowsayings/tests/fortune.pp
+- in: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/fortune.pp
   enter: |
     include cowsayings::fortune
 -->
