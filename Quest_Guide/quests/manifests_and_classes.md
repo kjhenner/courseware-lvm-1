@@ -283,7 +283,7 @@ main class.
 {% task 7 %}
 <!--
 ---
-- in: /etc/puppetlabs/puppet/environments/production/cowsayings/manifests/init.pp
+- in: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/manifests/init.pp
   enter: |
     class cowsayings {
       include cowsayings::cowsay
