@@ -71,7 +71,7 @@ if opts[:solve]
   quest = name == 'welcome' ? 'index' : "quests/#{name}"
   if File.exists?("/usr/src/courseware-lvm/Quest_Guide/#{quest}.md")
     f = File.open("/usr/src/courseware-lvm/Quest_Guide/#{quest}.md")
-    task_specs = f.read.scan(/<!--(.*?)-->/m)
+    task_specs = f.read.scan(/{%\stask\s\d+\s%}(.*?){%\sendtask\s%}/m)
     tasks = task_specs.collect do |m|
       YAML.load(m[0])
     end
