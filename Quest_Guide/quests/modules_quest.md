@@ -158,7 +158,7 @@ call it "vimrc." Use the `mkdir` command to create your module directory:
 
 {% task 3 %}
 ---
-- execute: mkdir /etc/puppetlabs/puppet/environments/production/modules/vimrc{manifests,tests,files}
+- execute: mkdir /etc/puppetlabs/puppet/environments/production/modules/vimrc/{manifests,tests,files}
 {% endtask %}
 
 Now you need three more directories, one for manifests, one for tests, and one
