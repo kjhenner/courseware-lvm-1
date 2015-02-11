@@ -93,7 +93,6 @@ writing manifests, change directories to save yourself some typing:
 
 ### Cowsay
 {% task 1 %}
-<!--
 ---
 - file: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/manifests/cowsay.pp
   content: |
@@ -102,7 +101,8 @@ writing manifests, change directories to save yourself some typing:
         ensure => 'present',
       }
     }
--->
+{% endtask %}
+
 You'll want to put the manifest with your cowsay class definition in the
 manifests directory. Use vim to create a `cowsay.pp` manifest:
 
@@ -135,11 +135,11 @@ the cowsay class contains a resource declaration for the cowsay package, but
 hasn't yet been told to do anything with it.
 
 {% task 2 %}
-<!--
 ---
 - file: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/cowsay.pp
   content: include cowsayings::cowsay
--->
+{% endtask %}
+
 To actually declare the class, create a `cowsay.pp` test in the tests directory.
 
     vim cowsayings/tests/cowsay.pp
@@ -169,11 +169,10 @@ You should see an output like the following:
     Notice: Finished catalog run in 1.08 seconds
 
 {% task 3 %}
-<!--
 ---
 - execute: puppet apply /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/cowsay.pp
 - execute: cowsay Puppet is awesome!
--->
+{% endtask %}
 
 If your dry run looks good, go ahead and run `puppet apply` again without the
 `--noop` flag. If everything went according to plan, the cowsay package is now
@@ -197,7 +196,6 @@ But this module isn't just about cowsay; it's about cow *sayings*. With the
 fortune package, you can provide your cow with a whole database of wisdom.
 
 {% task 4 %}
-<!--
 ---
 - file: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/manifests/fortune.pp
   content: |
@@ -206,7 +204,7 @@ fortune package, you can provide your cow with a whole database of wisdom.
         ensure => 'present',
       }
     }
--->
+{% endtask %}
 
 Create a new manifest for your fortune class definition:
 
@@ -223,11 +221,10 @@ class cowsayings::fortune {
 {% endhighlight %}
 
 {% task 5 %}
-<!--
 ---
 - file: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/fortune.pp
   content: include cowsayings::fortune
--->
+{% endtask %}
 
 Again, you'll want to validate your new manifests syntax with the `puppet parser
 validate` command. When everything checks out, you're ready to make your test
@@ -238,10 +235,9 @@ manifest:
 As before, use `include` to declare your `cowsayings::fortune` class. 
 
 {% task 6 %}
-<!--
 ---
 - execute: puppet apply /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/fortune.pp
--->
+{% endtask %}
 
 Apply the `cowsayings/tests/fortune.pp` manifest with the `--noop` flag. If 
 everything looks good, apply again without the flag.
@@ -272,7 +268,6 @@ file name `init.pp` as designating the manifest that will contain a module's
 main class.
 
 {% task 7 %}
-<!--
 ---
 - file: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/manifests/init.pp
   content: |
@@ -280,7 +275,7 @@ main class.
       include cowsayings::cowsay
       include cowsayings::fortune
     }
--->
+{% endtask %}
 
 So to contain your main `cowsayings` class, create an `init.pp` manifest in the
 `cowsayings/manifests` directory:
@@ -301,14 +296,13 @@ class cowsayings {
 Save the manifest, and check your syntax with the `puppet parser` tool.
 
 {% task 8 %}
-<!--
 ---
 - execute: |
     puppet apply -e "package { 'fortune-mod': ensure => 'absent', } \
     package {'cowsay': ensure => 'absent, }"
 - file: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/init.pp
   content: include cowsayings
--->
+{% endtask %}
 
 At this point, you've already got both packages you want installed on the
 Learning VM. Applying the changes again wouldn't actually do anything. For the
@@ -327,10 +321,10 @@ Here, just declare the `cowsayings` class:
     include cowsayings
 
 {% task 9 %}
-<!--
 ---
 - execute: puppet apply /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/init.pp
--->
+{% endtask %}
+
 Good. Now that the packages are gone, do a `--noop` first, then apply your
 `cowsayings/tests/init.pp` test.
 
