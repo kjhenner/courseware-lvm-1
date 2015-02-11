@@ -222,6 +222,7 @@ quests.)
 
 {% task 3 %}
 <!--
+---
 - execute: puppet apply -e "user { 'galatea': ensure => 'present', }"
 -->
 
