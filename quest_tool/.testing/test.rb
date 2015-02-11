@@ -93,7 +93,7 @@ if opts[:solve]
           }
         end
         if s['file']
-          open(file, 'w') { |f|
+          open(s['file'], 'w') { |f|
             f.puts s['content']
           }
         end
