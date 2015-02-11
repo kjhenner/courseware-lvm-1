@@ -73,24 +73,28 @@ if opts[:solve]
     f = File.open("/usr/src/courseware-lvm/Quest_Guide/#{quest}.md")
     task_specs = f.read.scan(/<!--(.*?)-->/m)
     tasks = task_specs.collect do |m|
-      puts m[0]
       YAML.load(m[0])
     end
     f.close
     tasks.each do |t|
       t.each do |s|
-        Open3.popen3(s['enter']) do |i, o, e, t|
-          if s['write']
-            s['write'].each { |w| puts w.inspect }
-            s['write'].each { |w| i.write(w) }
-          end
-          i.close
-          puts o.read
+        if s['execute']
+          Open3.popen3(s['execute']) do |i, o, e, t|
+            if s['input']
+              s['input'].each { |w| puts w.inspect }
+              s['input'].each { |w| i.write(w) }
+            end
+            i.close
+          # Some task spec tests just check bash history
+          open('/root/.bash_history', 'a') { |f|
+            f.puts s['execute']
+          }
         end
-        # Cheating way to make tests that check bash history work:
-        open('/root/.bash_history', 'a') { |f|
-          f.puts s['enter']
-        }
+        if s['file']
+          open(file, 'w') { |f|
+            f.puts s['content']
+          }
+        end
       end
     end
   else
