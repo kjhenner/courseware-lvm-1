@@ -73,7 +73,7 @@ you would use to declare a desired state.
 {% task 1 %}
 <!--
 ---
-- execute: puppet resource
+- execute: puppet resource user root
 -->
 
 Using the *puppet resource* tool, take a look at your root user account. Note
