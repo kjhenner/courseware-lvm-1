@@ -148,7 +148,7 @@ such as:
 {% task 3 %}
 <!--
 ---
-execute: quest --progress
+- execute: quest --progress
 -->
 Find out how much progress you have made so far:
 
