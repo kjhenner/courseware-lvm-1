@@ -223,7 +223,8 @@ quests.)
 {% task 3 %}
 <!--
 ---
-- execute: puppet apply -e "user { 'galatea': ensure => 'present', }"
+- execute: |
+    puppet apply -e "user { 'galatea': ensure => 'present', }"
 -->
 
 You can use the *puppet apply* tool with the *-e* (*--execute*) flag to execute
@@ -253,7 +254,7 @@ the account's owner.
     - "o"
     - "  comment => 'Galatea of Cyprus',"
     - "\e"
-    - "\:"
+    - ":"
     - "wq\r"
 -->
 
