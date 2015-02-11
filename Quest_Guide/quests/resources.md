@@ -73,7 +73,7 @@ you would use to declare a desired state.
 {% task 1 %}
 <!--
 ---
-- enter: puppet resource
+- execute: puppet resource
 -->
 
 Using the *puppet resource* tool, take a look at your root user account. Note
@@ -195,8 +195,8 @@ before you start changing attributes.
 {% task 2 %}
 <!--
 ---
-- enter: "puppet describe user | less"
-  write:
+- execute: "puppet describe user | less"
+  input:
     - 'q\r'
 -->
 
@@ -222,8 +222,7 @@ quests.)
 
 {% task 3 %}
 <!--
-- enter: |
-    puppet apply -e "user { 'galatea': ensure => 'present', }"
+- execute: puppet apply -e "user { 'galatea': ensure => 'present', }"
 -->
 
 You can use the *puppet apply* tool with the *-e* (*--execute*) flag to execute
@@ -248,8 +247,8 @@ the account's owner.
 {% task 4 %}
 <!--
 ---
-- enter: "puppet resource -e user galatea"
-  write:
+- execute: "puppet resource -e user galatea"
+  input:
     - "o"
     - "  comment => 'Galatea of Cyprus',"
     - "\e"

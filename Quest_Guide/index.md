@@ -92,8 +92,7 @@ versions of Puppet are running on this Learning VM. Type the following command:
 
 <!--
 ---
-- in: the shell
-  enter: puppet -V
+- execute: puppet -V
 -->
 
 You will see something like the following:
@@ -128,6 +127,10 @@ replace the .bashrc file. If you would like to make changes, append them to the 
 
 {% endwarning %}
 {% task 2 %}
+<!--
+---
+- execute: quest --help
+-->
 To explore the command options for the quest tool, type the following command:
 
     quest --help
@@ -143,6 +146,10 @@ such as:
     progress
 	
 {% task 3 %}
+<!--
+---
+execute: quest --progress
+-->
 Find out how much progress you have made so far:
 
     quest --progress
