@@ -95,7 +95,7 @@ writing manifests, change directories to save yourself some typing:
 {% task 1 %}
 <!--
 ---
-- in: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/manifests.cowsay.pp
+- in: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/manifests/cowsay.pp
   enter: |
     class cowsayings::cowsay {
       package { 'cowsay':
