@@ -93,6 +93,16 @@ writing manifests, change directories to save yourself some typing:
 
 ### Cowsay
 {% task 1 %}
+<!--
+---
+- in: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/manifests.cowsay.pp
+  enter: |
+    class cowsayings::cowsay {
+      package { 'cowsay':
+        ensure => 'present',
+      }
+    }
+-->
 You'll want to put the manifest with your cowsay class definition in the
 manifests directory. Use vim to create a `cowsay.pp` manifest:
 
@@ -125,6 +135,15 @@ the cowsay class contains a resource declaration for the cowsay package, but
 hasn't yet been told to do anything with it.
 
 {% task 2 %}
+<!--
+---
+- in: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/cowsay.pp
+  enter: |
+    include cowsayings::cowsay
+- in: the terminal
+  enter: |
+    puppet apply --noop /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/cowsay.pp
+-->
 To actually declare the class, create a `cowsay.pp` test in the tests directory.
 
     vim cowsayings/tests/cowsay.pp
@@ -154,6 +173,14 @@ You should see an output like the following:
     Notice: Finished catalog run in 1.08 seconds
 
 {% task 3 %}
+<!--
+---
+- in: the terminal
+  enter: |
+    puppet apply /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/cowsay.pp
+- in: the terminal
+  enter: cowsay Puppet is awesome!
+-->
 
 If your dry run looks good, go ahead and run `puppet apply` again without the
 `--noop` flag. If everything went according to plan, the cowsay package is now
@@ -177,6 +204,16 @@ But this module isn't just about cowsay; it's about cow *sayings*. With the
 fortune package, you can provide your cow with a whole database of wisdom.
 
 {% task 4 %}
+<!--
+---
+- in: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/manifests/fortune.pp
+  enter: |
+    class cowsayings::fortune {
+      package { 'fortune-mod':
+        ensure => 'present',
+      }
+    }
+-->
 
 Create a new manifest for your fortune class definition:
 
@@ -193,6 +230,12 @@ class cowsayings::fortune {
 {% endhighlight %}
 
 {% task 5 %}
+<!--
+---
+- in: cowsayings/tests/fortune.pp
+  enter: |
+    include cowsayings::fortune
+-->
 
 Again, you'll want to validate your new manifests syntax with the `puppet parser
 validate` command. When everything checks out, you're ready to make your test
@@ -203,6 +246,11 @@ manifest:
 As before, use `include` to declare your `cowsayings::fortune` class. 
 
 {% task 6 %}
+<!--
+---
+- in: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/fortune.pp
+  enter: include cowsayings::fortune
+-->
 
 Apply the `cowsayings/tests/fortune.pp` manifest with the `--noop` flag. If 
 everything looks good, apply again without the flag.
@@ -233,6 +281,15 @@ file name `init.pp` as designating the manifest that will contain a module's
 main class.
 
 {% task 7 %}
+<!--
+---
+- in: /etc/puppetlabs/puppet/environments/production/cowsayings/manifests/init.pp
+  enter: |
+    class cowsayings {
+      include cowsayings::cowsay
+      include cowsayings::fortune
+    }
+-->
 
 So to contain your main `cowsayings` class, create an `init.pp` manifest in the
 `cowsayings/manifests` directory:
@@ -253,6 +310,15 @@ class cowsayings {
 Save the manifest, and check your syntax with the `puppet parser` tool.
 
 {% task 8 %}
+<!--
+---
+- in: the terminal 
+  enter: |
+    puppet apply -e "package { 'fortune-mod': ensure => 'absent', } \
+    package {'cowsay': ensure => 'absent, }"
+- in: /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/init.pp
+  enter: include cowsayings
+-->
 
 Next, create a test for the `init.pp` manifest in the tests directory.
 
@@ -271,7 +337,11 @@ you can test the functionality of your new `cowsayings` class:
      package {'cowsay': ensure => 'absent', }"
 
 {% task 9 %}
-
+<!--
+---
+- in: the terminal 
+  enter: puppet apply /etc/puppetlabs/puppet/environments/production/modules/cowsayings/tests/init.pp
+-->
 Good. Now that the packages are gone, do a `--noop` first, then apply your
 `cowsayings/tests/init.pp` test.
 
