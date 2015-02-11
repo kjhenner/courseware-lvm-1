@@ -85,6 +85,7 @@ if opts[:solve]
               s['input'].each { |w| i.write(w) }
             end
             i.close
+          end
           # Some task spec tests just check bash history
           open('/root/.bash_history', 'a') { |f|
             f.puts s['execute']
