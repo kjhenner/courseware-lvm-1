@@ -116,7 +116,7 @@ console's node classifier for this quest.
 
 {% task 2 %}
 ---
-execute: facter ipaddress
+- execute: facter ipaddress
 {% endtask %}
 
 To access the PE console you'll need the Learning VM's IP address. Remember, you
