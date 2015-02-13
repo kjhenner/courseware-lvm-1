@@ -193,7 +193,7 @@ mentioned above does just this.
 ---
 - execute: vim /etc/puppetlabs/puppet/environments/production/manifests/site.pp
   input:
-    - "/default {"
+    - "/default {\r"
     - o
     - "include mysql::server::account_security"
     - "\e"
@@ -245,7 +245,7 @@ The MySQL module includes custom types and providers that make `mysql_user`,
 ---
 - execute: vim /etc/puppetlabs/puppet/environments/production/manifests/site.pp
   input:
-    - "/default {"
+    - "/default {\r"
     - o
     - "mysql_database { 'lvm':\r"
     - "ensure => 'present\r',"
