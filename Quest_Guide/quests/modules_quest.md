@@ -196,7 +196,7 @@ Puppet's built-in fileserver.
     - O
     - set number
     - "\e"
-    - :
+    - ":"
     - "q\r"
 {% endtask %}
 	
