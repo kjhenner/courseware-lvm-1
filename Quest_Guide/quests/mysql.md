@@ -61,7 +61,7 @@ classes are available to classify nodes.
     - "/default {\r"
     - o
     - "class { '::mysql::server':\r"
-    - "  root_password => 'strongpassword',
+    - "  root_password => 'strongpassword',\r"
     - "  override_options => { 'mysqld' => { 'max_connections' => '1024' } },\r"
     - "}"
     - "\e"
