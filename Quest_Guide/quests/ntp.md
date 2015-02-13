@@ -261,7 +261,7 @@ values to a single variable or attribute.
 
 {% task 4 %}
 ---
-- execute: vim /etc/puppet/puppetlabs/environments/production/manifests/site.pp
+- execute: vim /etc/puppetlabs/puppet/environments/production/manifests/site.pp
   input:
     - "/include ntp\r"
     - dd
