@@ -248,18 +248,18 @@ The MySQL module includes custom types and providers that make `mysql_user`,
     - "/default {"
     - o
     - "mysql_database { 'lvm':\r"
-    - "  ensure => 'present\r',
-    - "  charset => 'utf8\r',
+    - "  ensure => 'present\r',"
+    - "  charset => 'utf8\r',"
     - "}\r"
     - "mysql_user { 'lvm_user@localhost':\r"
-    - "  ensure => 'present',
+    - "  ensure => 'present',"
     - "}\r"
     - "mysql_grant { 'lvm_user@localhost/lvm.*':\r"
     - "  ensure => 'present',\r"
     - "  options => ['GRANT'],\r"
     - "  privileges => ['ALL'],\r"
-    - "  table => 'lvm.*\r',
-    - "  user => 'lvm_user@localhost\r',
+    - "  table => 'lvm.*\r',"
+    - "  user => 'lvm_user@localhost\r',"
     - "}"
     - "\e"
     - ":wq\r"
