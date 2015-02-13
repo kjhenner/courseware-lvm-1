@@ -248,7 +248,7 @@ The MySQL module includes custom types and providers that make `mysql_user`,
     - "/default {\r"
     - o
     - "mysql_database { 'lvm':\r"
-    - "ensure => 'present',\'"
+    - "ensure => 'present',\r"
     - "charset => 'utf8',\r"
     - "}\r"
     - "mysql_user { 'lvm_user@localhost':\r"
