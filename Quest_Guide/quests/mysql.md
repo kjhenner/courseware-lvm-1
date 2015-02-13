@@ -191,7 +191,7 @@ mentioned above does just this.
 
 {% task 4 %}
 ---
-- execute: vim /etc/puppetlabs/puppet/environment/production/manifests/site.pp
+- execute: vim /etc/puppetlabs/puppet/environments/production/manifests/site.pp
   input:
     - "/default {"
     - o
@@ -243,7 +243,7 @@ The MySQL module includes custom types and providers that make `mysql_user`,
 
 {% task 5 %}
 ---
-- execute: vim /etc/puppetlabs/puppet/environment/production/manifests/site.pp
+- execute: vim /etc/puppetlabs/puppet/environments/production/manifests/site.pp
   input:
     - "/default {"
     - o
