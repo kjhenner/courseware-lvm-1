@@ -197,7 +197,7 @@ Puppet's built-in fileserver.
     - set number
     - "\e"
     - ":"
-    - "q\r"
+    - "wq\r"
 {% endtask %}
 	
 Once you've copied the file, open so you can make an addition.
