@@ -71,9 +71,15 @@ if opts[:solve]
   quest = name == 'welcome' ? 'index' : "quests/#{name}"
   if File.exists?("/usr/src/courseware-lvm/Quest_Guide/#{quest}.md")
     f = File.open("/usr/src/courseware-lvm/Quest_Guide/#{quest}.md")
-    task_specs = f.read.scan(/{%\stask\s\d+\s%}(.*?){%\sendtask\s%}/m)
+    task_specs = f.read.scan(/{%\stask\s(\d+)\s%}(.*?){%\sendtask\s%}/m)
     tasks = task_specs.collect do |m|
-      YAML.load(m[0])
+      begin
+        YAML.load(m[0])
+      rescue Psych::SyntaxError => e
+        puts "There was an error parsing the solution for Task #{m[0]}"
+        puts "Validate that the following is valid YAML: #{m[1]}"
+        raise
+      end
     end
     f.close
     tasks.each do |t|
