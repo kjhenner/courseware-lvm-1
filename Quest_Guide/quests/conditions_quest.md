@@ -164,7 +164,7 @@ And your `tests` and `manifests` directories:
 	
 {% task 2 %}
 ---
-- file: //etc/puppetlabs/puppet/environments/production/modules/accounts/manifests/init.pp
+- file: /etc/puppetlabs/puppet/environments/production/modules/accounts/manifests/init.pp
   content: |
     class accounts ($name) {
       
