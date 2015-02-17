@@ -242,7 +242,7 @@ continuing on.
 
 {% task 3 %}
 ---
-- file: /etc/puppet/puppetlabs/environments/production/modules/accounts/tests/init.pp
+- file: /etc/puppetlabs/puppet/environments/production/modules/accounts/tests/init.pp
   content: |
     class {'accounts':
       name => 'dana',
