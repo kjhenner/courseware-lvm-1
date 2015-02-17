@@ -256,7 +256,7 @@ use class parameters to customize these values as the class is declared.
     - "\e"
     - "GO"
     - |
-      "file { "${doc_root}/${page_name}.html":
+      file { "${doc_root}/${page_name}.html":
         ensure => 'present',
         content => "<em>${message}</em>",
       }
@@ -289,11 +289,10 @@ file { "${doc_root}/${page_name}.html":
 - execute: vim /etc/puppetlabs/puppet/environments/production/modules/web/tests/init.pp
   input:
     - "ddi"
-    - |
-      class {'web':
-        page_name => 'hola',
-        message => 'Hola mundo!',
-      }
+    - "class {'web':\r"
+    - "  page_name => 'hola',\r"
+    - "  message => 'Hola mundo!',\r"
+    - "}"
     - "\e"
     - "wq\r"
 {% endtask %}
