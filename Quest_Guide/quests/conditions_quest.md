@@ -149,6 +149,10 @@ Before getting started, make sure you're working in the `modules` directory:
     cd /etc/puppetlabs/puppet/environments/production/modules
 	
 {% task 1 %}
+---
+- execute: mkdir /etc/puppetlabs/puppet/environments/production/modules/accounts
+- execute: mkdir /etc/puppetlabs/puppet/enbironments/production/modules/accounts{manifests,tests}
+{% endtask %}
 	
 Create an `accounts` directory:
 
@@ -159,6 +163,25 @@ And your `tests` and `manifests` directories:
     mkdir accounts/{manifests,tests}
 	
 {% task 2 %}
+---
+- file: //etc/puppetlabs/puppet/environments/production/modules/accounts/manifests/init.pp
+  content: |
+    class accounts ($name) {
+      
+      if $::operatingsystem == 'centos' {
+        $groups = 'wheel'
+      }
+      elsif $::operatingsystem == 'debian' {
+        $groups = 'admin'
+      }
+      else {
+        fail( "This module doesn't support ${::operatingsystem}." )
+      }
+
+      notice ( "Groups for user ${name} set to ${groups}" )
+
+    }
+{% endtask %}
 	
 Open the `accounts/manifests/init.pp` manifest in Vim.
 
@@ -186,7 +209,6 @@ class accounts ($name) {
   
   notice ( "Groups for user ${name} set to ${groups}" )
   
-  ...
 
 }
 {% endhighlight %}
@@ -219,6 +241,13 @@ Make sure that your manifest can pass a `puppet parser validate` check before
 continuing on.
 
 {% task 3 %}
+---
+- file: /etc/puppet/puppetlabs/environments/production/modules/accounts/tests/init.pp
+  content: |
+    class {'accounts":
+      name => 'dana',
+    }
+{% endtask %}
 
 Create a test manifest (`accounts/tests/init.pp`) and declare the accounts
 manifest with the name parameter set to `dana`.
@@ -232,6 +261,9 @@ class {'accounts':
 {% endhighlight %}
 
 {% task 4 %}
+---
+- execute: FACTER_operatingsystem=Debian puppet apply --noop /etc/puppetlabs/puppet/environments/production/modules/accounts/tests/init.pp
+{% endtask %}
 
 The Learning VM is running CentOS, so to test what would happen on a Debian OS
 you'll have to override the `operatingsystem` fact with a little environment
@@ -249,6 +281,9 @@ Look in the list of notices, and you'll see the changes that would have been
 applied.
 
 {% task 5 %}
+---
+- execute: FACTER_operatingsystem=Darwin puppet apply --noop /etc/puppetlabs/puppet/environments/production/modules/accounts/tests/init.pp
+{% endtask %}
 
 Try one more time with an unsupported operating system to check the fail
 condition:
@@ -256,6 +291,9 @@ condition:
     FACTER_operatingsystem=Darwin puppet apply --noop accounts/tests/init.pp
 
 {% task 6 %}
+---
+- execute: puppet apply /etc/puppetlabs/puppet/environments/production/modules/accounts/tests/init.pp
+{% endtask %}
 
 Now go ahead and run a `puppet apply --noop` on your test manifest without
 setting the environment variable. If this looks good, drop the `--noop` flag to
