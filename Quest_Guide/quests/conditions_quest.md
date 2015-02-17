@@ -151,7 +151,7 @@ Before getting started, make sure you're working in the `modules` directory:
 {% task 1 %}
 ---
 - execute: mkdir /etc/puppetlabs/puppet/environments/production/modules/accounts
-- execute: mkdir /etc/puppetlabs/puppet/enbironments/production/modules/accounts{manifests,tests}
+- execute: mkdir /etc/puppetlabs/puppet/enbironments/production/modules/accounts/{manifests,tests}
 {% endtask %}
 	
 Create an `accounts` directory:
@@ -244,7 +244,7 @@ continuing on.
 ---
 - file: /etc/puppet/puppetlabs/environments/production/modules/accounts/tests/init.pp
   content: |
-    class {'accounts":
+    class {'accounts':
       name => 'dana',
     }
 {% endtask %}
