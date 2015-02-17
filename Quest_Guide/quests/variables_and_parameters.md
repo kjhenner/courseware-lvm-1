@@ -152,6 +152,7 @@ Now create an `web` directory:
       file { "${doc_root}/bonjour.html":
         ensure => 'present',
         content => "<em>${french}</em>",
+      }
     }
 {% endtask %}
 
@@ -247,7 +248,20 @@ use class parameters to customize these values as the class is declared.
 
 {% task 5 %}
 ---
--
+- execute: vim /etc/puppetlabs/puppet/environments/production/modules/web/manifests/init.pp
+  input:
+    - "/class web\r"
+    - "2Wi"
+    - "( $page_name, $message ) "
+    - "\e"
+    - "GO"
+    - |
+      "file { "${doc_root}/${page_name}.html":
+        ensure => 'present',
+        content => "<em>${message}</em>",
+      }
+    - "\e"
+    - ":wq\r"
 {% endtask %}
 
 To get started re-writing your `web` class with parameters, reopen the
@@ -271,6 +285,18 @@ file { "${doc_root}/${page_name}.html":
 {% endhighlight %}
 
 {% task 6 %}
+---
+- execute: vim /etc/puppetlabs/puppet/environments/production/modules/web/tests/init.pp
+  input:
+    - "ddi"
+    - |
+      class {'web':
+        page_name => 'hola',
+        message => 'Hola mundo!',
+      }
+    - "\e"
+    - "wq\r"
+{% endtask %}
 
 As before, use the test manifest to declare the class. You'll open
 `web/tests/init.pp` and replace the simple `include` statement with the
@@ -284,6 +310,9 @@ class {'web':
 {% endhighlight %}
 
 {% task 7 %}
+---
+- execute: puppet apply /etc/puppetlabs/puppet/environments/production/modules/web/tests/init.pp
+{% endtask %}
 
 Now give it a try. Go ahead and do a `--noop` run, then apply the test.
 
