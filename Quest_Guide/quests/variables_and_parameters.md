@@ -294,6 +294,7 @@ file { "${doc_root}/${page_name}.html":
     - "  message => 'Hola mundo!',\r"
     - "}"
     - "\e"
+    - ":"
     - "wq\r"
 {% endtask %}
 
