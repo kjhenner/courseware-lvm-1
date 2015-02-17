@@ -85,7 +85,12 @@ if opts[:solve]
     tasks.each do |t|
       t.each do |s|
         if s['execute']
-          Open3.popen3(s['execute']) do |i, o, e, t|
+          # Capture an environment variable if present.
+          # Note that this will only currently work for one
+          # environment variable.
+          m = /(\S+)=(\S+)\s.*/.match(s['execute']) 
+          m = m ? {m[1] => m[2]} : {}
+          Open3.popen3(m, s['execute']) do |i, o, e, t|
             if s['input']
               s['input'].each { |w| puts w.inspect }
               s['input'].each { |w| i.write(w) }
