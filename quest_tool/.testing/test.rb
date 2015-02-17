@@ -74,7 +74,7 @@ if opts[:solve]
     task_specs = f.read.scan(/{%\stask\s(\d+)\s%}(.*?){%\sendtask\s%}/m)
     tasks = task_specs.collect do |m|
       begin
-        YAML.load(m[0])
+        YAML.load(m[1])
       rescue Psych::SyntaxError => e
         puts "There was an error parsing the solution for Task #{m[0]}"
         puts "Validate that the following is valid YAML: #{m[1]}"
@@ -88,9 +88,12 @@ if opts[:solve]
           # Capture an environment variable if present.
           # Note that this will only currently work for one
           # environment variable.
-          m = /(\S+)=(\S+)\s.*/.match(s['execute']) 
-          m = m ? {m[1] => m[2]} : {}
-          Open3.popen3(m, s['execute']) do |i, o, e, t|
+          m = /(\S+)=(\S+)\s(.*)/.match(s['execute'])
+          # If there is an environment variable, pass that to the
+          # process as a hash, preceding the string otherwise pass
+          # the raw string.
+          a = m ? [{m[1] => m[2]}, m[3]] : [s['execute']]
+          Open3.popen3(*a) do |i, o, e, t|
             if s['input']
               s['input'].each { |w| puts w.inspect }
               s['input'].each { |w| i.write(w) }
