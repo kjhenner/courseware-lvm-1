@@ -180,6 +180,12 @@ And your `tests` and `manifests` directories:
 
       notice ( "Groups for user ${name} set to ${groups}" )
 
+      user { $name:
+        ensure => 'present',
+        home => "/home/${name}",
+        groups => $groups,
+      }
+
     }
 {% endtask %}
 	
