@@ -200,6 +200,26 @@ for the SSH daemon's configuration file.
 Now let us disable GSSAPIAuthentication.
 
 {% task 4 %}
+---
+- execute: vim /etc/puppetlabs/puppet/environments/production/modules/sshd/files/sshd_config
+  input:
+    - "/GSSAPIAuthentication yes\r"
+    - ":%s/yes/no/g\r"
+    - ":wq\r"
+- execute: vim /etc/puppetlabs/puppet/environments/production/modules/sshd/manifests/init.pp
+  input: 
+    - "/class sshd {\r"
+    - o
+    - |
+      service { 'sshd':
+        ensure     => running,
+        enable     => true,
+        subscribe  => File['/etc/ssh/sshd_config'],
+      }
+    - "\e"
+    - ":wq\r"
+{% endtask %}
+
 Disable GSSAPIAuthentication for the SSH service
 
 Edit the `sshd/files/sshd_config` file.  
