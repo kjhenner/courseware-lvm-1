@@ -144,7 +144,7 @@ Before getting started, ensure that you're in the `modules` directory:
 
 {% task 1 %}
 ---
-- execute: mkdir -p /etc/puppetlabs/puppet/environmnets/production/modules/sshd/{tests,manifests,files}
+- execute: mkdir -p /etc/puppetlabs/puppet/environments/production/modules/sshd/{tests,manifests,files}
 {% endtask %}
 
 Create an `sshd` directory and create `tests`, `manifests`, and `files`
