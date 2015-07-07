@@ -27,4 +27,4 @@ Connect to the Learning VM with the login `root` and password `puppet`.
 (e.g. `ssh root@<IPADDRESS>`)
 
 5. To access the Quest Guide and get started, enter the Learning VM's IP address in
-your browser's address bar.
+your browser's address bar. (Be sure to use `http://<ADDRESS>` for the Quest Guide, as `https://<ADDRESS>` will take you to the PE console.)
