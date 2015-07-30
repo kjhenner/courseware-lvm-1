@@ -1,4 +1,4 @@
-#!/opt/puppet/bin/ruby
+#!/opt/puppetlabs/puppet/bin/ruby
 
 class String
 def bold;           "\033[1m#{self}\033[22m" end 
